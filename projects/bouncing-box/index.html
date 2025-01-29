@@ -6,10 +6,19 @@
 	<title>Bouncing Box</title>
 	<script src="jquery.min.js"></script>
 	<style>
+		body {
+ 			background-image: url("https://media.formula1.com/image/upload/f_auto,c_limit,w_1440,q_auto/t_16by9Centre/f_auto/q_auto/fom-website/manual/Hall%20of%20Fame%202024/GettyImages-1285771774");
+ 			background-color: #cccccc;
+			 -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+		}
+
 		.box {
 			width: 70px;
 			height: 70px;
-			background-color: teal;
+			background-color: aqua;
 			font-size: 300%;
 			text-align: center;
 			user-select: none;
@@ -52,8 +61,9 @@
 			box.on('click', handleBoxClick);
 
 			// moves the Box to a new position on the screen along the X-Axis
-			function moveBoxTo(newPositionX) {
+			function moveBoxTo(newPositionX, newPositionY) {
 				box.css("left", newPositionX);
+				box.css("top", newPositionY);
 			}
 
 			// changes the text displayed on the Box
@@ -69,6 +79,9 @@
 			var positionX = 0;
 			var points = 0;
 			var speed = 10;
+			var positionY = 0;
+			var speedY = 10;
+			var boardHeight = jQuery(window).height();
 
 
 			/* 
@@ -78,13 +91,20 @@
 			*/
 			function update() {
 				//Increases positionX by 10
-				moveBoxTo(positionX);
+				moveBoxTo(positionX, positionY);
 				positionX = positionX + speed;
 				if(positionX > boardWidth - 60){
 					speed *= -1;
 				}
 				if(positionX < 0){
 					speed *= -1;
+				}
+				positionY = positionY + speedY;
+				if(positionY > boardHeight - 90){
+					speedY *= -1;
+				}
+				if(positionY < 0){
+					speedY *= -1;
 				}
 
 
@@ -96,13 +116,19 @@
 			the left side of the screen.
 			*/
 			function handleBoxClick() {
-				positionX = 0; //reset box to 0
+				positionX = 0;
+				positionY = 0; //reset box to 0
 				points++; //increase points
 				changeBoxText(points); //keep points
 				if(speed > 0){
 					speed += 3;
 				} else if(speed < 0){
 					speed -= 3;
+				}
+				if(speedY > 0){
+					speedY += 3;
+				} else if(speedY < 0){
+					speedY -= 3;
 				}
 
 			};
