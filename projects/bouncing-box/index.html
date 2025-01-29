@@ -82,6 +82,8 @@
 			var positionY = 0;
 			var speedY = 10;
 			var boardHeight = jQuery(window).height();
+			var randNumX = Math.random() * boardWidth;
+			var randNumY = Math.random() * boardHeight;
 
 
 			/* 
@@ -106,6 +108,7 @@
 				if(positionY < 0){
 					speedY *= -1;
 				}
+				
 
 
 			};
@@ -116,8 +119,12 @@
 			the left side of the screen.
 			*/
 			function handleBoxClick() {
-				positionX = 0;
-				positionY = 0; //reset box to 0
+				if (0, boardWidth){
+					positionX = randNumX;
+				}
+				if (0, boardHeight){
+					positionY = randNumY;
+				} 
 				points++; //increase points
 				changeBoxText(points); //keep points
 				if(speed > 0){
@@ -130,6 +137,7 @@
 				} else if(speedY < 0){
 					speedY -= 3;
 				}
+				
 
 			};
 
