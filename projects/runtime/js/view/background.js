@@ -29,8 +29,8 @@ var background = function (window) {
         // ANIMATION VARIABLES HERE //////////////////////////////////////
         //////////////////////////////////////////////////////////////////
         // TODO (several):
-      var tree;
-      
+        var tree;
+        var buildings = [];
         // called at the start of game and whenever the page is resized
         // add objects for display in background. draws each image added to the background once
         function render() {
@@ -57,7 +57,15 @@ var background = function (window) {
             background.addChild(moon); // add the moon to the background container
             
             // TODO 4: Part 1 - Add buildings!     Q: This is before TODO 4 for a reason! Why?
-            
+            for (var i = 0; i < 5; i++) {
+                var buildingColors = ["red", "pink", "yellow", "orange", "purple"]
+                var buildingHeight = 300 * Math.random(); // assign 300 to the buildingHeight variable
+                var building = draw.rect(75, buildingHeight, buildingColors[i], "Black", 1); // draw rect with 75 width, buildingHeight is the height, lightgrey is the fill color, black is the outline, and 1 is the outline width
+                building.x = 200 * i; // multiply 200 by the current i value and store it as the x pos for the building
+                building.y = groundY - buildingHeight; // takes the groundY, subtracts the buildingheight and stores that as the y value
+                background.addChild(building); // add our building to the background container
+                buildings.push(building); // add the building to the buildings arry for further manipulation
+              }
             
             // TODO 3: Part 1 - Add a tree
             tree = draw.bitmap("img/tree.png"); // creates a bitmap for the tree image stores it in the variable tree
@@ -77,8 +85,10 @@ var background = function (window) {
             var groundY = ground.y;
             
             // TODO 3: Part 2 - Move the tree!
-            
-            
+            tree.x -= 3; // moves the tree to the left by subtracting 3 from its current x pos
+            if(tree.x < -200){
+                tree.x = canvasWidth;
+            }
             // TODO 4: Part 2 - Parallax
             
 
