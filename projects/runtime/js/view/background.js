@@ -29,7 +29,7 @@ var background = function (window) {
         // ANIMATION VARIABLES HERE //////////////////////////////////////
         //////////////////////////////////////////////////////////////////
         // TODO (several):
-      
+      var tree;
       
         // called at the start of game and whenever the page is resized
         // add objects for display in background. draws each image added to the background once
@@ -39,17 +39,31 @@ var background = function (window) {
             // TODO 1:
             // this currently fills the background with an obnoxious yellow;
             // you should modify both the height and color to suit your game
-            var backgroundFill = draw.rect(canvasWidth,canvasHeight,'yellow');
-            background.addChild(backgroundFill);
+            var backgroundFill = draw.rect(canvasWidth,groundY,'blue'); // draws a retangle and stores it in the varblie background fill 
+            background.addChild(backgroundFill); // adding the background fill varblie to the background
             
             // TODO 2: - Add a moon and starfield
-            
+            for (var i = 0; i < 100; i++){
+                var circle = draw.circle(2, "white", "yellow", 2); // create a circle with a specified radius, border color, fill color, alpha and store it in the variable circle
+                circle.x = canvasWidth * Math.random(); // set random x pos within canvas width
+                circle.y = groundY * Math.random(); // set random y pos within groundY range
+                background.addChild(circle); // adds the star to the bacground container
+            }
+            var moon = draw.bitmap("img/moon.png"); // creates a bitmap object using the moon image and stores it in thr moon variable
+            moon.x = canvas.width - 500; // sets the moon's x podition
+            moon.y = groundY - 900; // sets the moon's y postion
+            moon.scaleX = 0.5; // scales the moon's width
+            moon.scaleY = 0.5; // scales the moon's height
+            background.addChild(moon); // add the moon to the background container
             
             // TODO 4: Part 1 - Add buildings!     Q: This is before TODO 4 for a reason! Why?
             
             
             // TODO 3: Part 1 - Add a tree
-            
+            tree = draw.bitmap("img/tree.png"); // creates a bitmap for the tree image stores it in the variable tree
+            tree.x = canvasWidth; // place the tree off-screen to the right
+            tree.y = groundY - 225; // place the tree above the ground (adjusted for tree height)
+            background.addChild(tree); // add the tree to the background container
             
         } // end of render function - DO NOT DELETE
         
