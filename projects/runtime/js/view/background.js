@@ -51,7 +51,7 @@ var background = function (window) {
             }
             var moon = draw.bitmap("img/moon.png"); // creates a bitmap object using the moon image and stores it in thr moon variable
             moon.x = canvas.width - 500; // sets the moon's x podition
-            moon.y = groundY - 900; // sets the moon's y postion
+            moon.y = groundY - 450; // sets the moon's y postion
             moon.scaleX = 0.5; // scales the moon's width
             moon.scaleY = 0.5; // scales the moon's height
             background.addChild(moon); // add the moon to the background container
@@ -91,10 +91,10 @@ var background = function (window) {
             }
             // TODO 4: Part 2 - Parallax
             for (var i = 0; i < buildings.length; i++){
-                var building = buildings[i];
-                building.x -= 1;
-                if (building.x < -100){
-                    building.x = canvasWidth;
+                var building = buildings[i]; // the individual index of buildings array stored in a variable
+                building.x -= 1; // subtracts 1 from the builfing's x pos; animate to the left
+                if (building.x < -100){ // checks if the x of building is less than -100
+                    building.x = canvasWidth; //
                 }
             }
 
