@@ -29,12 +29,64 @@ var runLevels = function (window) {
     obstacleHitZone.addChild(obstacleImage); // attaches the image to the obstacle hitzone
     obstacleImage.x = -25; // position the image on the hitzone's x value by moving it left 25 pixils
     obstacleImage.y = -25; // position the image on the hitzone's y value by moving it up 25 pixils
+    obstacleHitZone.rotationalVelocity = 8;
     }
     
     createObstacles(400, groundY - 50, 25, 10);
     createObstacles(800, groundY - 50, 25, 20);
     createObstacles(1000, groundY - 50, 25, 30);
 
+    
+
+    function createEnemy (x, y, velocity, damage, score){
+      var enemy = game.createGameItem("enemy", 25); // creates game item and add it to the game
+      var redSquare = draw.rect(50, 50, "red"); // creates a red square and stores it in the var redSquare
+      redSquare.x = -25; // offsets the image form the hitzone by -25 pixels
+      redSquare.y = -25; // offsets the image form the hitzone by -25 pixels
+      enemy.addChild(redSquare); // add the red square as a child to our enemy variable
+      enemy.x = x; // x pos of enemy
+      enemy.y = y; // y pos of enemy
+      game.addGameItem(enemy); // add the enemy to the game
+      enemy.velocityX -= velocity; // controlling how fast the enemy moves on the x axis
+      enemy.rotationalVelocity = 8; // sets the rotaional velocity of the enemy
+      enemy.onPlayerCollision = function () {
+        game.changeIntegrity(-damage) // subtracts 10 health from halleBot's HUD
+      };
+      enemy.onProjectileCollision = function () {
+        game.increaseScore(score); // increases your score when Halle shoots the enemy
+        enemy.fadeOut(); // enemy fades out when halle shoots enemy
+        //shrink()
+        //flyTo(0,0)
+      };
+    }
+    createEnemy(400, groundY - 50, 3, 10, 100);
+    createEnemy(800, groundY - 50, 3, 15, 200);
+    createEnemy(1100, groundY - 50, 3, 20, 300);
+
+
+    function createReward (x, y, velocity, health, score){
+      var reward = game.createGameItem("reward", 25); // creates game item and add it to the game
+      var blueSquare = draw.rect(50, 50, "blue"); // creates a blue square and stores it in the var blueSquare
+      blueSquare.x = -25; // offsets the image form the hitzone by -25 pixels
+      blueSquare.y = -25; // offsets the image form the hitzone by -25 pixels
+      reward.addChild(blueSquare); // add the blue square as a child to our reward variable
+      reward.x = x; // x pos of reward
+      reward.y = y; // y pos of reward
+      game.addGameItem(reward); // add the reward to the game
+      reward.velocityX -= velocity; // controlling how fast the reward moves on the x axis
+      reward.rotationalVelocity = 8; // sets the rotaional velocity of the reward
+      reward.onPlayerCollision = function () {
+        game.changeIntegrity(health) // subtracts 10 health from halleBot's HUD
+        reward.shrink()
+      };
+      reward.onProjectileCollision = function () {
+        game.increaseScore(score); // increases your score when Halle shoots the reward
+        reward.fadeOut(); // reward fades out when halle shoots reward
+        
+        //flyTo(0,0)
+      };
+    }
+    createReward(500, groundY - 100, 3, 10, 100);
     function startLevel() {
       // TODO 13 goes below here
 
