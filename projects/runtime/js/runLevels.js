@@ -76,20 +76,52 @@ var runLevels = function (window) {
       reward.velocityX -= velocity; // controlling how fast the reward moves on the x axis
       reward.rotationalVelocity = 8; // sets the rotaional velocity of the reward
       reward.onPlayerCollision = function () {
-        game.changeIntegrity(health) // subtracts 10 health from halleBot's HUD
+        game.changeIntegrity(+health) // subtracts 10 health from halleBot's HUD
         reward.shrink()
+        game.increaseScore(score); // increases your score when Halle shoots the reward
       };
       reward.onProjectileCollision = function () {
-        game.increaseScore(score); // increases your score when Halle shoots the reward
         reward.fadeOut(); // reward fades out when halle shoots reward
         
         //flyTo(0,0)
       };
     }
-    createReward(500, groundY - 100, 3, 10, 100);
+    createReward(500, groundY - 100, 2, 10, 100);
+
+    function createlevel (x, y, velocity){
+      var level = game.createGameItem("level", 25); // creates game item and add it to the game
+      var yellowSquare = draw.rect(50, 50, "yellow"); // creates a yellow square and stores it in the var yellowSquare
+      yellowSquare.x = -25; // offsets the image form the hitzone by -25 pixels
+      yellowSquare.y = -25; // offsets the image form the hitzone by -25 pixels
+      level.addChild(yellowSquare); // add the yellow square as a child to our level variable
+      level.x = x; // x pos of level
+      level.y = y; // y pos of level
+      game.addGameItem(level); // add the level to the game
+      level.velocityX -= velocity; // controlling how fast the level moves on the x axis
+      level.rotationalVelocity = 8; // sets the rotaional velocity of the level
+      level.onPlayerCollision = function () {
+        level.shrink()
+        startLevel();
+      };
+    }
+
+    createlevel(1500, groundY - 50, 3);
+    
     function startLevel() {
       // TODO 13 goes below here
 
+      var level = levelData[currentlevel]; // fetches the currentlevel from the levelData array and stores it in var level array
+      var levelObjects = level.gameItems // retrive the array of gameItems and stores it in level.gramesItems
+
+      for(var i = 0; i < levelObjects.length; i++){
+        var element = levelObjects[i];
+
+        if(element.type === "sawblade"){
+          createObstacles(element.x, element.y, element.hitSize, element.damage);
+        }
+
+
+      }
 
 
       //////////////////////////////////////////////
