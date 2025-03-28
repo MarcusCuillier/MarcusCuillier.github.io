@@ -94,7 +94,7 @@ var background = function (window) {
                 var building = buildings[i]; // the individual index of buildings array stored in a variable
                 building.x -= 1; // subtracts 1 from the builfing's x pos; animate to the left
                 if (building.x < -100){ // checks if the x of building is less than -100
-                    building.x = canvasWidth; //
+                    building.x = canvasWidth; // makes the width of the building = canvasWidth
                 }
             }
 

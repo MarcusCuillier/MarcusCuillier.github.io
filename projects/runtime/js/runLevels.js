@@ -18,23 +18,23 @@ var runLevels = function (window) {
 
     // TODOs 5 through 11 go here
     // BEGIN EDITING YOUR CODE HERE
-    function createObstacles(x,y, hitSize, damage){
+    function createObstacles(x,y, hitSize, damage, image){
       var hitZoneSize = hitSize; // define the size of the hitzone and assign to a variable
     var damageFromObstacle = damage; // defines the amount of damage obstacle causes and assigns to variable
     var obstacleHitZone = game.createObstacle(hitZoneSize, damageFromObstacle); // creates the obstacle hitzone
     obstacleHitZone.x = x; // sets the x coordinate of the obstacle
     obstacleHitZone.y = y; // stets the y coordinate of the obstacle
     game.addGameItem(obstacleHitZone); // adds the obstacle
-    var obstacleImage = draw.bitmap("img/sawblade.png"); // draw the image bitmap and store it in a variable
+    var obstacleImage = draw.bitmap(image); // draw the image bitmap and store it in a variable
     obstacleHitZone.addChild(obstacleImage); // attaches the image to the obstacle hitzone
     obstacleImage.x = -25; // position the image on the hitzone's x value by moving it left 25 pixils
     obstacleImage.y = -25; // position the image on the hitzone's y value by moving it up 25 pixils
     obstacleHitZone.rotationalVelocity = 8;
     }
     
-    createObstacles(400, groundY - 50, 25, 10);
-    createObstacles(800, groundY - 50, 25, 20);
-    createObstacles(1000, groundY - 50, 25, 30);
+    //createObstacles(400, groundY - 50, 25, 10);
+    //createObstacles(800, groundY - 50, 25, 20);
+    //createObstacles(1000, groundY - 50, 25, 30);
 
     
 
@@ -59,9 +59,9 @@ var runLevels = function (window) {
         //flyTo(0,0)
       };
     }
-    createEnemy(400, groundY - 50, 3, 10, 100);
-    createEnemy(800, groundY - 50, 3, 15, 200);
-    createEnemy(1100, groundY - 50, 3, 20, 300);
+    //createEnemy(400, groundY - 50, 3, 10, 100);
+    //createEnemy(800, groundY - 50, 3, 15, 200);
+    //createEnemy(1100, groundY - 50, 3, 20, 300);
 
 
     function createReward (x, y, velocity, health, score){
@@ -86,7 +86,7 @@ var runLevels = function (window) {
         //flyTo(0,0)
       };
     }
-    createReward(500, groundY - 100, 2, 10, 100);
+    //createReward(500, groundY - 100, 2, 10, 100);
 
     function createlevel (x, y, velocity){
       var level = game.createGameItem("level", 25); // creates game item and add it to the game
@@ -100,24 +100,36 @@ var runLevels = function (window) {
       level.velocityX -= velocity; // controlling how fast the level moves on the x axis
       level.rotationalVelocity = 8; // sets the rotaional velocity of the level
       level.onPlayerCollision = function () {
-        level.shrink()
-        startLevel();
+        level.shrink() // makes the box shrink when the player hits it
+        startLevel(); // starts the next level
       };
     }
 
-    createlevel(1500, groundY - 50, 3);
+    //createlevel(1500, groundY - 50, 3);
     
     function startLevel() {
       // TODO 13 goes below here
 
-      var level = levelData[currentlevel]; // fetches the currentlevel from the levelData array and stores it in var level array
+      var level = levelData[currentLevel]; // fetches the currentlevel from the levelData array and stores it in var level array
       var levelObjects = level.gameItems // retrive the array of gameItems and stores it in level.gramesItems
 
       for(var i = 0; i < levelObjects.length; i++){
-        var element = levelObjects[i];
+        var element = levelObjects[i]; // allows eveything in the array usesable
 
-        if(element.type === "sawblade"){
-          createObstacles(element.x, element.y, element.hitSize, element.damage);
+        if(element.type === "sawblade"){ // checks the type key:value of the gameItems object to detrimen which object to manifest
+          createObstacles(element.x, element.y, element.hitSize, element.damage, element.image); // if the conditon is true it will pass the permiter
+        }
+
+        if(element.type === "enemy"){ // checks the type key:value of the gameItems object to detrimen which object to manifest
+          createEnemy(element.x, element.y, element.velocity, element.damage, element.score); // if the conditon is true it will pass the permiter
+        }
+
+        if(element.type === "reward"){ // checks the type key:value of the gameItems object to detrimen which object to manifest
+          createReward(element.x, element.y, element.velocity, element.health, element.score); // if the conditon is true it will pass the permiter
+        }
+
+        if(element.type === "level"){ // checks the type key:value of the gameItems object to detrimen which object to manifest
+          createlevel(element.x, element.y, element.velocity); // if the conditon is true it will pass the permiter
         }
 
 
