@@ -18,7 +18,7 @@ var runLevels = function (window) {
 
     // TODOs 5 through 11 go here
     // BEGIN EDITING YOUR CODE HERE
-    function createObstacles(x,y, hitSize, damage, image){
+    function createObstacles(x,y, hitSize, damage, image, xScale, yScale){
       var hitZoneSize = hitSize; // define the size of the hitzone and assign to a variable
     var damageFromObstacle = damage; // defines the amount of damage obstacle causes and assigns to variable
     var obstacleHitZone = game.createObstacle(hitZoneSize, damageFromObstacle); // creates the obstacle hitzone
@@ -30,6 +30,8 @@ var runLevels = function (window) {
     obstacleImage.x = -25; // position the image on the hitzone's x value by moving it left 25 pixils
     obstacleImage.y = -25; // position the image on the hitzone's y value by moving it up 25 pixils
     obstacleHitZone.rotationalVelocity = 8;
+    obstacleImage.scaleX = xScale;
+    obstacleImage.scaleY = yScale;
     }
     
     //createObstacles(400, groundY - 50, 25, 10);
@@ -117,7 +119,7 @@ var runLevels = function (window) {
         var element = levelObjects[i]; // allows eveything in the array usesable
 
         if(element.type === "sawblade"){ // checks the type key:value of the gameItems object to detrimen which object to manifest
-          createObstacles(element.x, element.y, element.hitSize, element.damage, element.image); // if the conditon is true it will pass the permiter
+          createObstacles(element.x, element.y, element.hitSize, element.damage, element.image, element.xScale, element.yScale); // if the conditon is true it will pass the permiter
         }
 
         if(element.type === "enemy"){ // checks the type key:value of the gameItems object to detrimen which object to manifest
