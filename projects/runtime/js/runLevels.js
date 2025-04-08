@@ -40,17 +40,19 @@ var runLevels = function (window) {
 
     
 
-    function createEnemy (x, y, velocity, damage, score){
+    function createEnemy (x, y, velocity, damage, score, image, xScale, yScale){
       var enemy = game.createGameItem("enemy", 25); // creates game item and add it to the game
-      var redSquare = draw.rect(50, 50, "red"); // creates a red square and stores it in the var redSquare
-      redSquare.x = -25; // offsets the image form the hitzone by -25 pixels
-      redSquare.y = -25; // offsets the image form the hitzone by -25 pixels
-      enemy.addChild(redSquare); // add the red square as a child to our enemy variable
+      var enemyImage = draw.bitmap(image); // creates a red square and stores it in the var enemyImage
+      enemyImage.x = -67; // offsets the image form the hitzone by -25 pixels
+      enemyImage.y = -90; // offsets the image form the hitzone by -25 pixels
+      enemy.addChild(enemyImage); // add the red square as a child to our enemy variable
       enemy.x = x; // x pos of enemy
       enemy.y = y; // y pos of enemy
       game.addGameItem(enemy); // add the enemy to the game
       enemy.velocityX -= velocity; // controlling how fast the enemy moves on the x axis
-      enemy.rotationalVelocity = 8; // sets the rotaional velocity of the enemy
+      enemy.rotationalVelocity = 0; // sets the rotaional velocity of the enemy
+      enemyImage.scaleX = xScale;
+      enemyImage.scaleY = yScale;
       enemy.onPlayerCollision = function () {
         game.changeIntegrity(-damage) // subtracts 10 health from halleBot's HUD
       };
@@ -123,7 +125,7 @@ var runLevels = function (window) {
         }
 
         if(element.type === "enemy"){ // checks the type key:value of the gameItems object to detrimen which object to manifest
-          createEnemy(element.x, element.y, element.velocity, element.damage, element.score); // if the conditon is true it will pass the permiter
+          createEnemy(element.x, element.y, element.velocity, element.damage, element.score, element.image, element.xScale, element.yScale); // if the conditon is true it will pass the permiter
         }
 
         if(element.type === "reward"){ // checks the type key:value of the gameItems object to detrimen which object to manifest
