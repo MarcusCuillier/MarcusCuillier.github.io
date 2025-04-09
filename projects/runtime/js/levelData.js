@@ -15,15 +15,15 @@ var makeLevelData = function (window) {
         number: 1,
         speed: -3,
         gameItems: [
-          { type: "sawblade", x: 400, y: groundY - 120, hitSize: 25, damage: 10, image: "img/sawblade.png", xScale: 1, yScale: 1 },
-          { type: "sawblade", x: 800, y: groundY - 120, hitSize: 25, damage: 20, image: "img/sawblade.png", xScale: 1, yScale: 1 },
-          { type: "sawblade", x: 1000, y: groundY - 120, hitSize: 25, damage: 30, image: "img/sawblade.png", xScale: 1, yScale: 1 },
+          { type: "ceilingTrap", x: 400, y: groundY - 120, hitSize: 25, damage: 10, image: "img/ceilingtrap.png", xScale: .36, yScale: .36, imageX: -39, imageY: -28 },
+          { type: "trap", x: 800, y: groundY - 120, hitSize: 25, damage: 20, image: "img/trap.png", xScale: .35, yScale: .35, imageX: -39, imageY: -50 },
+          { type: "sawblade", x: 1000, y: groundY - 120, hitSize: 25, damage: 30, image: "img/trap.png", xScale: .35, yScale: .35, imageX: -39, imageY: -50 },
 
           { type: "enemy", x: 400, y: groundY - 50, velocity: 3, damage: 10, score: 100, image: "img/zombie.png", xScale: 0.6, yScale: 0.6  },
           { type: "enemy", x: 800, y: groundY - 50, velocity: 3, damage: 15, score: 200, image: "img/zombie.png", xScale: 0.6, yScale: 0.6  },
           { type: "enemy", x: 1100, y: groundY - 50, velocity: 3, damage: 20, score: 300, image: "img/zombie.png", xScale: 0.6, yScale: 0.6  },
 
-          { type: "reward", x: 500, y: groundY - 100, velocity: 2, health: 10, score: 100 },
+          { type: "reward", x: 500, y: groundY - 100, velocity: 2, health: 10, score: 100, image: "img/ceilingtrap.png", xScale: .10, yScale: .10, imageX: -39, imageY: -28  },
 
           { type: "level", x: 1800, y: groundY - 50, velocity: 3 },
         ],
