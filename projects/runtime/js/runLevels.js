@@ -71,14 +71,14 @@ var runLevels = function (window) {
     function createReward (x, y, velocity, health, score, image, xScale, yScale, imageX, imageY ){
       var reward = game.createGameItem("reward", 25); // creates game item and add it to the game
       var rewardImage = draw.bitmap(image); // creates a blue square and stores it in the var blueSquare
-     reward.x = imageX; // offsets the image form the hitzone by -25 pixels
-      reward.y = imageY; // offsets the image form the hitzone by -25 pixels
+      rewardImage.x = imageX; // offsets the image form the hitzone by -25 pixels
+      rewardImage.y = imageY; // offsets the image form the hitzone by -25 pixels
       reward.addChild(rewardImage); // add the blue square as a child to our reward variable
       reward.x = x; // x pos of reward
       reward.y = y; // y pos of reward
       game.addGameItem(reward); // add the reward to the game
       reward.velocityX -= velocity; // controlling how fast the reward moves on the x axis
-      reward.rotationalVelocity = 8; // sets the rotaional velocity of the reward
+      reward.rotationalVelocity = 0; // sets the rotaional velocity of the reward
       rewardImage.scaleX = xScale;
       rewardImage.scaleY = yScale;
       reward.onPlayerCollision = function () {
@@ -94,17 +94,19 @@ var runLevels = function (window) {
     }
     //createReward(500, groundY - 100, 2, 10, 100);
 
-    function createlevel (x, y, velocity){
+    function createlevel (x, y, velocity, image, xScale, yScale, imageX, imageY){
       var level = game.createGameItem("level", 25); // creates game item and add it to the game
-      var yellowSquare = draw.rect(50, 50, "yellow"); // creates a yellow square and stores it in the var yellowSquare
-      yellowSquare.x = -25; // offsets the image form the hitzone by -25 pixels
-      yellowSquare.y = -25; // offsets the image form the hitzone by -25 pixels
-      level.addChild(yellowSquare); // add the yellow square as a child to our level variable
+      var levelImage = draw.bitmap(image); // creates a yellow square and stores it in the var yellowSquare
+      levelImage.x = imageX; // offsets the image form the hitzone by -25 pixels
+      levelImage.y = imageY; // offsets the image form the hitzone by -25 pixels
+      level.addChild(levelImage); // add the yellow square as a child to our level variable
       level.x = x; // x pos of level
       level.y = y; // y pos of level
       game.addGameItem(level); // add the level to the game
       level.velocityX -= velocity; // controlling how fast the level moves on the x axis
-      level.rotationalVelocity = 8; // sets the rotaional velocity of the level
+      level.rotationalVelocity = 0; // sets the rotaional velocity of the level
+      levelImage.scaleX = xScale;
+      levelImage.scaleY = yScale;
       level.onPlayerCollision = function () {
         level.shrink() // makes the box shrink when the player hits it
         startLevel(); // starts the next level
@@ -138,7 +140,7 @@ var runLevels = function (window) {
         }
 
         if(element.type === "level"){ // checks the type key:value of the gameItems object to detrimen which object to manifest
-          createlevel(element.x, element.y, element.velocity); // if the conditon is true it will pass the permiter
+          createlevel(element.x, element.y, element.velocity, element.image, element.xScale, element.yScale, element.imageX, element.imageY); // if the conditon is true it will pass the permiter
         }
 
 
